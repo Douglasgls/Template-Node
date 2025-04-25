@@ -1,0 +1,82 @@
+import utils from "../utils/utils.js";
+import User from "../models/users.js"
+
+
+
+export class AuthController {
+    hello(req, res) {
+        res.json({ message: "Hello World" });
+    }
+
+    async registerUser(req, res) {
+        const { name, email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
+
+        var isExist = await User.findOne({where: {email: email}});
+
+        if(isExist){
+            res.status(400).json({message: "Email already exist"})
+        }
+
+        const userCreated = {name, email, password}
+        
+        const passwordHash = await utils.hashPassword(password,10)
+
+        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash})
+
+        res.json({ message: "Usuário criado com sucesso", id: user.id, email });
+    }
+
+    async login(req, res) {
+        const {email, password} = req.body;
+        
+        if(!email || !password){
+            return res.status(400).json({message:"required Email and Password"})
+        }
+
+        var isExistUser = await User.findOne({where: {email: email}});
+
+        if(!isExistUser){
+            res.status(400).json({message: "Email not exist"})
+        }
+
+        const match = await utils.compareHash(password,isExistUser.password)
+
+        if(!match){
+            res.status(401).json({message: "Not Authorized"})
+        }
+
+        const token = await utils.generatedToken({
+            email:isExistUser.email
+        })
+
+        res.status(200).json({message:"Login realizado com sucesso.", token})
+    }
+
+    async refreshToken(req, res){
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+
+        if(!token){
+            res.status(400).json({message:"you do not have Web Token"})
+        }
+
+        const user = await utils.decodeToken(token);
+
+        console.log("DOUGLAS ", user)
+
+        if (!user) {
+            return res.status(401).json({ message: "Invalid or expired token" });
+        }
+
+        const refreshToken = await utils.generatedToken({
+            email:user.email
+        }) 
+
+        res.status(200).json({message:"Token valido, tome um novo ",refreshToken})
+
+    }
+}
