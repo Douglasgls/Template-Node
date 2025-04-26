@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Router
-app.use('/auth/v1', auth);
-app.use('/user/v1', user);
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/user', user);
 
 export default app;

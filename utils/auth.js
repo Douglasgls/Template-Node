@@ -28,10 +28,18 @@ async function decodeToken(token) {
       }
 }
 
+async function getUserFromRequest(req) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return null;
+    return decodeToken(token);
+}
+
 export default {
     hashPassword,
     compareHash,
     generatedToken,
     validateToken,
     decodeToken,
+    getUserFromRequest
 }

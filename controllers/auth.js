@@ -62,22 +62,15 @@ export class AuthController {
     }
 
     async refreshToken(req, res){
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
+        const tokenUser = utils.getUserFromRequest(req);
 
-        if(!token){
-            res.status(400).json({message:"you do not have Web Token"})
-        }
-
-        const user = await utils.decodeToken(token);
-
-        if (!user) {
+        if (!tokenUser) {
             return res.status(401).json({ message: "Invalid or expired token" });
         }
 
         const refreshToken = await utils.generatedToken({
-            email:user.email,
-            position:user.position
+            email:tokenUser.email,
+            position:tokenUser.position
         }) 
 
         res.status(200).json({message:"Token valido, tome um novo ",refreshToken})
