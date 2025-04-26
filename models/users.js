@@ -30,6 +30,10 @@ const User = sequelize.define('User', {
     position:{
         type:DataTypes.STRING,
         allowNull:false,
+    },
+    imgLink:{
+        type:DataTypes.STRING,
+        allowNull:false,
     }
   });
 

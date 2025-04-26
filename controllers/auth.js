@@ -1,8 +1,6 @@
 import utils from "../utils/auth.js";
 import User from "../models/users.js"
 
-
-
 export class AuthController {
     hello(req, res) {
         res.json({ message: "Hello World" });
@@ -11,7 +9,7 @@ export class AuthController {
     async registerUser(req, res) {
         const allowedPositions = ['ADMIN', 'SELLER'];
 
-        const { name, email, password, position } = req.body;
+        const { name, email, password, position, imgLink } = req.body;
 
         if(!allowedPositions.includes(req.body.position)){
             return res.status(400).json({message: "position not allowed choice ADMIN or SELLER"})
@@ -31,7 +29,7 @@ export class AuthController {
         
         const passwordHash = await utils.hashPassword(password,10)
 
-        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash,position:position})
+        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash,position:position, imgLink: imgLink});
 
         res.json({id: user.id, email, message: "Usuário criado com sucesso"});
     }
