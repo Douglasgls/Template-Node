@@ -22,7 +22,7 @@ async function validateToken(token) {
 async function decodeToken(token) {
     try {
         const decoded = jwt.verify(token, SEGREDOJWTEXEMPLO);
-        return decoded // { userId: 123, iat: ..., exp: ... }
+        return decoded
       } catch (err) {
         return null
       }

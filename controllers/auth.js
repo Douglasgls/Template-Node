@@ -1,4 +1,4 @@
-import utils from "../utils/utils.js";
+import utils from "../utils/auth.js";
 import User from "../models/users.js"
 
 
@@ -9,7 +9,13 @@ export class AuthController {
     }
 
     async registerUser(req, res) {
-        const { name, email, password } = req.body;
+        const allowedPositions = ['ADMIN', 'SELLER'];
+
+        const { name, email, password, position } = req.body;
+
+        if(!allowedPositions.includes(req.body.position)){
+            return res.status(400).json({message: "position not allowed choice ADMIN or SELLER"})
+        }
 
         if (!email || !password) {
             return res.status(400).json({ message: "Email and password are required" });
@@ -21,13 +27,13 @@ export class AuthController {
             res.status(400).json({message: "Email already exist"})
         }
 
-        const userCreated = {name, email, password}
+        const userCreated = {name, email, password,position:position}
         
         const passwordHash = await utils.hashPassword(password,10)
 
-        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash})
+        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash,position:position})
 
-        res.json({ message: "Usuário criado com sucesso", id: user.id, email });
+        res.json({id: user.id, email, message: "Usuário criado com sucesso"});
     }
 
     async login(req, res) {
@@ -50,7 +56,8 @@ export class AuthController {
         }
 
         const token = await utils.generatedToken({
-            email:isExistUser.email
+            email:isExistUser.email,
+            position:isExistUser.position
         })
 
         res.status(200).json({message:"Login realizado com sucesso.", token})
@@ -66,14 +73,13 @@ export class AuthController {
 
         const user = await utils.decodeToken(token);
 
-        console.log("DOUGLAS ", user)
-
         if (!user) {
             return res.status(401).json({ message: "Invalid or expired token" });
         }
 
         const refreshToken = await utils.generatedToken({
-            email:user.email
+            email:user.email,
+            position:user.position
         }) 
 
         res.status(200).json({message:"Token valido, tome um novo ",refreshToken})

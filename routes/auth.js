@@ -8,7 +8,7 @@ router.get('/hello',authController.hello);
 
 router.post('/registerUser',authController.registerUser);
 
-router.post('/Login',authController.login);
+router.post('/login',authController.login);
 
 router.get('/refreshToken', authController.refreshToken);
 
