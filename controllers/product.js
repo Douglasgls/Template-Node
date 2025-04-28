@@ -51,7 +51,7 @@ export class ProductController{
         const existProduct = await Product.findByPk(id)
 
         if(!existProduct){
-            res.status(404).json({message:"Product not found"})
+            return res.status(404).json({message:"Product not found"})
         }
 
         return res.status(200).json({existProduct})
@@ -59,6 +59,7 @@ export class ProductController{
 
     async updateProduct(req,res){
         const validKeys = ['name','price','description','qualitity','imgLink']
+
         const id = req.params.id
         const existProduct = await Product.findByPk(id)
 
@@ -66,16 +67,12 @@ export class ProductController{
 
         for(const [key] of Object.entries(req.body)){
             if(!validKeys.includes(key)){
-                res.status(400).json({message:"key invalid: " + key, validKeys: validKeys})
+                return res.status(400).json({message:"key invalid: " + key, validKeys: validKeys})
             }
         }
 
-        if(!body){
-            res.status(400).json({message:"You must provide at least one value"})
-        }
-
         if(!existProduct){
-            res.status(404).json({message:"Product not found"})
+            return res.status(404).json({message:"Product not found"})
         }
 
         const product = existProduct.get({plain:true})
@@ -86,7 +83,7 @@ export class ProductController{
            }
         }
 
-        product.updatedAt = Date.now()
+        product.updatedAt = new Date
 
         await Product.update(product,{
             where:{id:id}
@@ -102,7 +99,7 @@ export class ProductController{
         const existProduct = await Product.findByPk(id)
 
         if(!existProduct){
-            res.status(404).json({message:"Product not found"})
+           return res.status(404).json({message:"Product not found"})
         }
 
         await Product.destroy({
