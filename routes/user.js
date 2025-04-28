@@ -1,18 +1,18 @@
 import { Router } from "express"
 import { UserController } from "../controllers/user.js";
-import { UserMiddleware } from "../middleware/user.js";
+import { AuthMiddleware } from "../middleware/auth.js";
 
 const router = Router();
 const userController = new UserController();
 
-const userMiddleware = new UserMiddleware();
+const authMiddleware = new AuthMiddleware();
 
 router.get('/hello',userController.hello);
 
 router.get('/profile',userController.profile);
 
-router.put('/profile',userController.updateProfile);
+router.put('/profile',userController.updateProfile); // LEMBRAR DE ATUALIZAR O EMAIL NO TOKEN
 
-router.get('/allUsers',userMiddleware.handlerRoleADMIN,userController.AllUsers);
+router.get('/allUsers',authMiddleware.handlerRoleADMIN,userController.AllUsers);
 
 export default router;

@@ -62,7 +62,7 @@ export class AuthController {
     }
 
     async refreshToken(req, res){
-        const tokenUser = utils.getUserFromRequest(req);
+        const tokenUser = await utils.getUserFromRequest(req);
 
         if (!tokenUser) {
             return res.status(401).json({ message: "Invalid or expired token" });

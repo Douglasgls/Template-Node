@@ -41,5 +41,5 @@ export default {
     generatedToken,
     validateToken,
     decodeToken,
-    getUserFromRequest
+    getUserFromRequest,
 }

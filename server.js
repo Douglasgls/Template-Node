@@ -1,5 +1,6 @@
 import http  from 'node:http';
 import app from "./app.js";
+import indexModels from "../PodeApagar/models/index.js"
 const hostname = '127.0.0.1';
 const port = 3000;
 

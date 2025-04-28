@@ -33,10 +33,7 @@ export class UserController {
     }
 
     async updateProfile(req, res) {
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
-
-        const user = await utils.decodeToken(token);
+        const user = await utils.getUserFromRequest(req);
 
         if (!user) {
             return res.status(401).json({ message: "Invalid or expired token" });

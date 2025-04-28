@@ -6,6 +6,7 @@ import express from 'express';
 // Router
 import auth from './routes/auth.js';
 import user from './routes/user.js';
+import product from './routes/product.js';
 
 var app = express();
 
@@ -19,5 +20,6 @@ app.use(express.urlencoded({ extended: false }));
 // Router
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/user', user);
+app.use('/api/v1/product', product);
 
 export default app;
