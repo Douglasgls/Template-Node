@@ -19,5 +19,4 @@ router.delete('/:id',authMiddleware.handlerRoleADMIN ,productController.deletePr
 
 router.post('/',authMiddleware.handlerRoleADMIN ,productController.createdProduct);
 
-
 export default router;

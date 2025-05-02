@@ -1,5 +1,6 @@
 import utils from "../utils/auth.js";
 import User from "../models/users.js"
+import Cart from "../models/cart.js"
 
 export class AuthController {
     hello(req, res) {
@@ -30,6 +31,8 @@ export class AuthController {
         const passwordHash = await utils.hashPassword(password,10)
 
         const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash,position:position, imgLink: imgLink});
+
+        await Cart.create({userId:user.id})
 
         res.json({id: user.id, email, message: "Usuário criado com sucesso"});
     }
