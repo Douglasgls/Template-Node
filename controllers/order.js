@@ -71,4 +71,14 @@ export class OrderController {
 
     res.json({ id: order.id, message: "Order created successfully" });
 }
+
+    async OrderItems(req, res){
+        const orderId = req.params.id
+
+        const orders = await OrderItem.findAll({
+            where: { orderId: orderId }
+        })
+
+        res.json({ orders });
+    }
 }

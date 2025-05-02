@@ -11,7 +11,7 @@ router.get('/hello',userController.hello);
 
 router.get('/profile',userController.profile);
 
-router.put('/profile',userController.updateProfile); // LEMBRAR DE ATUALIZAR O EMAIL NO TOKEN
+router.put('/profile',userController.updateProfile);
 
 router.get('/allUsers',authMiddleware.handlerRoleADMIN,userController.AllUsers);
 

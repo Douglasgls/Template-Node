@@ -10,4 +10,6 @@ router.get('/hello',authMiddleware.verifyUserToken,orderController.hello);
 
 router.post('/',authMiddleware.verifyUserToken,orderController.checkout);
 
+router.get('/:id',authMiddleware.verifyUserToken,orderController.OrderItems);
+
 export default router;

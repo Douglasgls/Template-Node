@@ -26,6 +26,7 @@ const User = sequelize.define('User', {
     position:{
         type:DataTypes.STRING,
         allowNull:false,
+        dialectTypes: 'enum("ADMIN", "USER")',
     },
     imgLink:{
         type:DataTypes.STRING,

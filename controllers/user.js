@@ -55,33 +55,48 @@ export class UserController {
         }
 
         const userProfile = isExistUser.get({ plain: true });
-
+        let newEmail = false;
         for (const [key, value] of Object.entries(req.body)) {
             if (userProfile[key] !== value) {
                 if(key === 'password') {
                     userProfile[key] = await utils.hashPassword(value, 10);
                 }
-
                 if(key === 'email'){
                     const validEmail = await User.findOne(
                         {
-                            attributes: ['id', 'nome', 'email', 'position', 'imgLink', 'createdAt', 'updatedAt'],
+                            attributes: ['id'],
                             where: {email: value}
                         })
-                    if(validEmail){
-                        return res.status(400).json({message: "Email already exist"});
-                    }
-                }
 
+                        if(validEmail){
+                            return res.status(400).json({message: "Email already exist"});
+                        }
+
+                    newEmail = true;
+                }
                 userProfile[key] = value;
             }
         }
 
+        var token = null
+        if(newEmail){
+            token = await utils.generatedToken({
+                email: userProfile.email,
+                position: userProfile.position
+            })
+        }
+        
         userProfile.updatedAt = new Date();
 
         await User.update(userProfile, { where: { email: user.email } });
 
-        res.json({ userProfile, message: "Perfil atualizado com sucesso" });
+        if(newEmail){
+            res.json({ userProfile, message: "Perfil atualizado com sucesso", token});
+            return;
+        }else{
+            res.json({ userProfile, message: "Perfil atualizado com sucesso"});
+            return;
+        }
     }
 
     async AllUsers(req, res) {
