@@ -20,4 +20,8 @@ app.use('/api/v1/product', product);
 app.use('/api/v1/cart', cart);
 app.use('/api/v1/order', order);
 
+app.get('/', (req, res) => {
+    res.send('API funcionando 🎉');
+  });
+
 export default app;
