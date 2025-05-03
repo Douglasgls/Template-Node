@@ -1,7 +1,9 @@
 // dbconfig.js
 import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const sequelize = new Sequelize('postgresql://root:I6B4uTDO1LNS9yQuRqSTswH2znL3pDl9@dpg-d0akpmh5pdvs73bquo0g-a.oregon-postgres.render.com/ecomerce_ap0k', {
+const sequelize = new Sequelize(process.env.DB_HOST_RENDER_POSTGRESS, {
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {
