@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 // import sequelize from '../dbConfigSqlite.js';
-// import sequelize from '../dbConfigMySql.js';
-import sequelize from '../dbConfigPostgres.js';
+import sequelize from '../dbConfigMySql.js';
+// import sequelize from '../dbConfigPostgres.js';
 
 
 const OrderItem = sequelize.define('OrderItem', {
