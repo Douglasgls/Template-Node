@@ -15,7 +15,7 @@ export class UserController {
 
         const isExistUser = await User.findOne(
             {
-                attributes: ['id', 'nome', 'email', 'position', 'imgLink', 'createdAt', 'updatedAt'],
+                attributes: ['id', 'nome', 'email','CPF','position', 'imgLink', 'createdAt', 'updatedAt'],
                 where: {email: user.email}
             }
         );
@@ -41,7 +41,7 @@ export class UserController {
 
         const isExistUser = await User.findOne(
             {
-                attributes: ['id', 'nome', 'email', 'position', 'imgLink', 'createdAt', 'updatedAt'],
+                attributes: ['id', 'nome', 'email', 'CPF','position', 'imgLink', 'createdAt', 'updatedAt'],
                 where: {email: user.email}
             }
         );
@@ -73,6 +73,11 @@ export class UserController {
                         }
 
                     newEmail = true;
+                }
+                if(key === 'CPF'){
+                    if(value.length !== 11){
+                        return res.status(400).json({message: "Invalid CPF"});
+                    }
                 }
                 userProfile[key] = value;
             }

@@ -41,7 +41,7 @@ export default class PixService{
         }
     }
 
-    async getQrCode(cobId){
+    async getQrCode(cobId, token){
         const agent = new https.Agent({
             pfx: this.certHom,
             passphrase: "",
@@ -51,7 +51,7 @@ export default class PixService{
             method: "GET",
             url: process.env.EFI_URL_HUM_BASE + "/v2/loc/" + cobId + "/qrcode",
             headers: {
-                Authorization: "Bearer " + this.token,
+                Authorization: "Bearer " + token,
                 "Content-Type": "application/json",
             },
             httpsAgent: agent,

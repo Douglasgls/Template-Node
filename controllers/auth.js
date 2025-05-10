@@ -8,7 +8,7 @@ export class AuthController {
     }
 
     async registerUser(req, res) {
-        const allowedPositions = ['ADMIN', 'SELLER'];
+        const allowedPositions = ['ADMIN', 'USER'];
 
         const { name, email, password, position, imgLink } = req.body;
 

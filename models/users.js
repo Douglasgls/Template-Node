@@ -33,6 +33,13 @@ const User = sequelize.define('User', {
     imgLink:{
         type:DataTypes.STRING,
         allowNull:false,
+    },CPF:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        unique:true,
+        validate:{
+            len:[11]
+        }
     }
   });
 
