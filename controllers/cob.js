@@ -1,7 +1,7 @@
-import AuthService from '../pix/AuthService.js';
 import PixService  from '../pix/PixService.js';
 import User from '../models/users.js';
 import Order from '../models/order.js';
+import AuthService from '../pix/authService.js';
 
 
 

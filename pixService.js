@@ -9,7 +9,7 @@ export class PixService{
     constructor(){
         this.clientId = process.env.EFI_CLIENT_ID;
         this.clientSecret = process.env.EFI_CLIENT_SECRET;
-        this.urlToken = process.env.EFI_URL_TOKEN;
+        this.urlToken = process.env.EFI_URL_TOKEN_HOM;
 
         this.certHom = fs.readFileSync('./certs/homologacao-757630-Template-Node.p12');
         this.certProd = fs.readFileSync('./certs/producao-757630-Template-Node.p12');
@@ -33,7 +33,7 @@ export class PixService{
 
         var config = {
             method: "POST",
-            url: process.env.EFI_URL_TOKEN,
+            url: process.env.EFI_URL_TOKEN_HOM,
             headers: {
               Authorization: "Basic " + auth,
               "Content-Type": "application/json",

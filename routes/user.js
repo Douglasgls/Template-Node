@@ -9,10 +9,10 @@ const authMiddleware = new AuthMiddleware();
 
 router.get('/hello',userController.hello);
 
-router.get('/profile',userController.profile);
+router.post('/',userController.profile);
 
-router.put('/profile',userController.updateProfile);
+router.put('/',userController.updateProfile);
 
-router.get('/allUsers',authMiddleware.handlerRoleADMIN,userController.AllUsers);
+router.get('/',authMiddleware.handlerRoleADMIN,userController.AllUsers);
 
 export default router;

@@ -10,7 +10,7 @@ export class AuthController {
     async registerUser(req, res) {
         const allowedPositions = ['ADMIN', 'USER'];
 
-        const { name, email, password, position, imgLink } = req.body;
+        const { name, email, CPF,password, position, imgLink } = req.body;
 
         if(!allowedPositions.includes(req.body.position)){
             return res.status(400).json({message: "position not allowed choice ADMIN or SELLER"})
@@ -26,11 +26,11 @@ export class AuthController {
             res.status(400).json({message: "Email already exist"})
         }
 
-        const userCreated = {name, email, password,position:position}
+        const userCreated = {name, email, CPF, password,position:position}
         
         const passwordHash = await utils.hashPassword(password,10)
 
-        const user = await User.create({nome: userCreated.name,email:userCreated.email,password: passwordHash,position:position, imgLink: imgLink});
+        const user = await User.create({nome: userCreated.name,email:userCreated.email,CPF:userCreated.CPF,password: passwordHash,position:position, imgLink: imgLink});
 
         await Cart.create({userId:user.id})
 

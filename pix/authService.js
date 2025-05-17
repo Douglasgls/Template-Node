@@ -7,9 +7,9 @@ dotenv.config();
 
 export default class AuthService{
     constructor(){
-            this.clientId = process.env.EFI_CLIENT_ID;
-            this.clientSecret = process.env.EFI_CLIENT_SECRET;
-            this.urlToken = process.env.EFI_URL_TOKEN;
+            this.clientId = process.env.EFI_CLIENT_ID_HOM;
+            this.clientSecret = process.env.EFI_CLIENT_SECRET_HOM;
+            this.urlToken = process.env.EFI_URL_TOKEN_HOM;
     
             this.certHom = fs.readFileSync('./certs/homologacao-757630-Template-Node.p12');
             this.certProd = fs.readFileSync('./certs/producao-757630-Template-Node.p12');
@@ -21,7 +21,7 @@ export default class AuthService{
     async getTokenPixAPI(){
             var data = JSON.stringify({ grant_type: "client_credentials" });
     
-            var data_credentials = process.env.EFI_CLIENT_ID + ":" + process.env.EFI_CLIENT_SECRET;
+            var data_credentials = process.env.EFI_CLIENT_ID_HOM + ":" + process.env.EFI_CLIENT_SECRET_HOM;
     
             var auth = Buffer.from(data_credentials).toString("base64");
     
@@ -32,7 +32,7 @@ export default class AuthService{
     
             var config = {
                 method: "POST",
-                url: process.env.EFI_URL_TOKEN,
+                url: process.env.EFI_URL_TOKEN_HOM,
                 headers: {
                   Authorization: "Basic " + auth,
                   "Content-Type": "application/json",

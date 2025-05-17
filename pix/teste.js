@@ -1,9 +1,12 @@
-import AuthService from './AuthService.js';
+import AuthService from '../pix/authService.js';
 import PixService  from './PixService.js';
 
 const authService = new AuthService();
 const pixService = new PixService(authService);
 
-const cobranca = await pixService.setCobPix(3600, '12345678909', 'João da Silva', '150.00');
+const cobranca = await pixService.setCobPix(3600, '16147287478', 'douglas paz da silva', '0.01');
 
-console.log(cobranca);
+const token = await authService.getValidToken(); 
+const qrCode = await pixService.getQrCode(cobranca.loc.id,token);
+
+console.log(qrCode);
