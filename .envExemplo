@@ -1,0 +1,57 @@
+// 🛢️ Banco de Dados
+// Endereço do servidor do banco (ex: localhost ou endereço da cloud)
+DB_HOST=
+
+// Nome de usuário para acesso ao banco de dados
+DB_USER=
+
+// Senha do banco de dados
+DB_PASSWORD=
+
+// Nome do banco de dados a ser utilizado
+DB_NAME=
+
+// Porta usada pelo banco de dados (ex: 3306 para MySQL)
+DB_PORT=
+
+// Porta usada para PostgreSQL (ex: 5432), se quiser separar
+DB_PORT_POST=
+
+// Host do PostgreSQL hospedado no Render
+DB_HOST_RENDER_POSTGRESS=
+
+------------------------------------------------------------
+
+// 🔐 Credenciais da API Efí (Produção)
+// ID do cliente Efí para ambiente de produção
+EFI_CLIENT_ID=
+
+// Chave secreta do cliente Efí (produção)
+EFI_CLIENT_SECRET=
+
+------------------------------------------------------------
+
+// 🔐 Credenciais da API Efí (Homologação/Testes)
+// ID do cliente Efí para ambiente de testes
+EFI_CLIENT_ID_HOM=
+
+// Chave secreta do cliente Efí para ambiente de testes
+EFI_CLIENT_SECRET_HOM=
+
+------------------------------------------------------------
+
+// 🔗 URLs da API Efí (Produção e Homologação)
+// URL para obter o token (produção)
+EFI_URL_TOKEN=
+
+// URL para obter o token (homologação)
+EFI_URL_TOKEN_HOM=
+
+// URL base da API Efí em ambiente de homologação
+EFI_URL_HUM_BASE=
+
+// URL para requisições PIX
+EFI_URL_PIX=
+
+// Chave PIX cadastrada na Efí (pode ser email, CPF, CNPJ ou chave aleatória)
+EFI_PIX_KEY=
